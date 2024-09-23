@@ -162,7 +162,7 @@ mouse and keyboard sharing tools. We aim for idea sharing and interoperability.
   Deskflow/Synergy-derivative with the goal of continuing what Barrier started, after Barrier
   became a dead fork.
 * [**Synergy**](https://github.com/deskflow/deskflow/wiki/Relationship-with-Synergy) -
-  Downstream commercial fork and Deskflow sponsor, geared toward adapting upstream to customer
+  Downstream commercial fork and Deskflow sponsor, geared toward adapting to customer
   needs, offering business and enterprise licensing.
 
 ## FAQ
@@ -170,7 +170,7 @@ mouse and keyboard sharing tools. We aim for idea sharing and interoperability.
 ### Is Deskflow compatible with Lan Mouse or Input Leap?
 
 We would love to see compatibility between our fellow open source projects, Lan Mouse and 
-Input Leap. This idea is discussed from time in the communities for all of our projects,
+Input Leap. This idea is discussed occasionally in the communities for all of our projects,
 so it may happen in the not-too-distant future.
 
 ### If I want to solve issues in Deskflow do I need to contribute to a fork?
