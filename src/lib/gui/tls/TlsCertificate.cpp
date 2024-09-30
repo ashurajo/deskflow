@@ -27,12 +27,12 @@
 static const char *const kCertificateKeyLength = "rsa:";
 static const char *const kCertificateHashAlgorithm = "-sha256";
 static const char *const kCertificateLifetime = "365";
-static const char *const kCertificateSubjectInfo = "/CN=Deskflow";
+static const char *const kCertificateSubjectInfo = "/CN=" DESKFLOW_APP_NAME;
 
 #if defined(Q_OS_WIN)
 static const char *const kWinOpenSslDir = "OpenSSL";
 static const char *const kWinOpenSslBinary = "openssl.exe";
-static const char *const kConfigFile = "deskflow.conf";
+static const char *const kConfigFile = "openssl.cnf";
 #elif defined(Q_OS_UNIX)
 static const char *const kUnixOpenSslCommand = "openssl";
 #endif
@@ -98,21 +98,15 @@ bool TlsCertificate::runTool(const QStringList &args) {
 #endif
 
   QStringList environment;
+
+// Windows is special! :)
+// For OpenSSL, it's very common to bundle the openssl.exe and openssl.cnf files
+// with the application. This is made a little more complex in the Windows dev
+// env, because vcpkg can't find the openssl.cnf file by default, so we need to
+// give it a bit of guidance by setting the `OPENSSL_CONF` env var.
 #if defined(Q_OS_WIN)
   auto openSslDir = QDir(openSslWindowsDir());
   auto config = QDir::cleanPath(openSslDir.filePath(kConfigFile));
-  if (!QFile::exists(config)) {
-    qDebug("openssl config file not found: %s", qUtf8Printable(config));
-
-    // if the expected production file location doesn't exist, try the dev path.
-    config = QDir::cleanPath(QString("res/openssl/%1").arg(kConfigFile));
-
-    // if it still isn't there, then there's something seriously wrong.
-    if (!QFile::exists(config)) {
-      qFatal() << "openssl config file not found: " << config;
-    }
-  }
-
   environment << QString("OPENSSL_CONF=%1").arg(config);
 #endif
 
